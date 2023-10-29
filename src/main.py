@@ -53,11 +53,10 @@ async def handle_get(request):
 
 async def handle(username, text):
     logging.info(username)
+    logging.info(text)
     chat = await client.get_input_entity(username)
     async with client.conversation(chat) as conv:
         await conv.send_message(text)
-        answer = await conv.get_response()
-        return bool(answer.raw_text)
 
 
 if __name__ == '__main__':
