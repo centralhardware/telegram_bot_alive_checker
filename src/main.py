@@ -24,7 +24,7 @@ async def handle_post(request):
         return web.Response(status=422, body='emtpy body')
     try:
         data = json.loads(body)
-        result = await handle(data['username'])
+        result = await handle(data['username'], data['text'])
     except JSONDecodeError:
         return web.Response(status=422, body='invalid json')
     except KeyError:
@@ -39,22 +39,23 @@ async def handle_post(request):
 async def handle_get(request):
     try:
         username = request.query['username']
+        text = request.query['text']
     except KeyError:
         return web.Response(status=422, body='mission required param username')
     if not username:
         return web.Response(status=422, body='username param can not be empty')
-    result = await handle(username)
+    result = await handle(username, text)
     if result:
         return web.Response(status=200, body='ok')
     else:
         return web.Response(status=400, body='bot offline')
 
 
-async def handle(username):
+async def handle(username, text):
     logging.info(username)
     chat = await client.get_input_entity(username)
     async with client.conversation(chat) as conv:
-        await conv.send_message("/ping")
+        await conv.send_message(text)
         answer = await conv.get_response()
         return bool(answer.raw_text)
 
