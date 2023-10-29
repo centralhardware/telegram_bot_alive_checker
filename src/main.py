@@ -51,7 +51,9 @@ async def handle(username, text):
     logging.info(username)
     logging.info(text)
     chat = await client.get_input_entity(username)
-    await client.send_message(chat, text)
+    async with client.conversation(chat) as conv:
+        await conv.send_message(text)
+
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
