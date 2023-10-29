@@ -42,7 +42,7 @@ async def handle_get(request):
         return web.Response(status=422, body='username param can not be empty')
     if not text:
         return web.Response(status=422, body='text param can not be empty')
-    await handle(username, text)
+    await handle(username)
     return web.Response(status=200, body='ok')
 
 
@@ -56,7 +56,7 @@ async def handle(username, text):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     logging.info('start application')
 
     client.connect()
