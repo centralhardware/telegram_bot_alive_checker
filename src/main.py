@@ -47,8 +47,6 @@ async def handle_get(request):
     result = await handle(username, text)
     if result:
         return web.Response(status=200, body='ok')
-    else:
-        return web.Response(status=400, body='bot offline')
 
 
 async def handle(username, text):
@@ -57,6 +55,7 @@ async def handle(username, text):
     chat = await client.get_input_entity(username)
     async with client.conversation(chat) as conv:
         await conv.send_message(text)
+        return True
 
 
 if __name__ == '__main__':
