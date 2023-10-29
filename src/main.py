@@ -46,11 +46,12 @@ async def handle_get(request):
     return web.Response(status=200, body='ok')
 
 
+
 async def handle(username, text):
     logging.info(username)
     logging.info(text)
-    await client.send_message(username, text)
-
+    chat = await client.get_input_entity(username)
+    await client.send_message(chat, text)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
