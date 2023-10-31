@@ -1,8 +1,6 @@
 ## telegram bot alive checker
 
-this is simple web server that allow you to check that your bot is alive
-
-script send /ping command to bot and check that answer is pong after response with 200 if all ok otherwise 400
+this is simple web server that allow to send some text to a any telegram chat
 
 environment variable:
 - API_ID
@@ -19,6 +17,7 @@ make POST request with body
 
 ```json
 {
-  "username": "username of bot"
+  "username": "username of bot",
+  "test": "test"
 }
 ```
